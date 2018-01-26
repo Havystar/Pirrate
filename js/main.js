@@ -40,6 +40,7 @@ function tick(){
 function draw(){
     map.draw();
     Ship.prototype.list[0].draw();
+    Enemy.prototype.drawAll[list.length]();
 }
 
 function goFullScreen(){

@@ -1,7 +1,7 @@
 function Ship(_x, _y){
     this.x = _x * frame - 64;
     this.y = _y * frame - 64;
-    this.dirX = 800;
+    this.dirX = 200;
     this.dirY = 800;
 }
 Ship.prototype.list = new Array(0);
