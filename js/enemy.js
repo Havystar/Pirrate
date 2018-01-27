@@ -10,123 +10,122 @@ function Enemy(_type){
         case 0:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
-            this.angry =false; //angry oznacza czy nas atakuje od razu czy nie
-             //Powstawiałem losowe wartości, żeby reszta kodu działała, gdy się to doczepi - B
-            
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
+            this.angry =false;
+            //angry oznacza czy nas atakuje od razu czy nie
             break;
         case 1:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
             this.angry =false;
             break;
             
         case 2:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
             this.angry =false;
             break;
             
         case 3:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
             this.angry =false;
             break;
             
         case 4:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
             this.angry =false;
             break;
              
         case 5:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
-            this.angry =false;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
+            this.angry =true;
             break;
              
         case 6:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
-            this.angry =false;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
+            this.angry =true;
             break;
              
         case 7:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
-            this.angry =false;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
+            this.angry =true;
             break;
              
         case 8:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = ;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = ;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 0;
-            this.rangeOfSee = 0;
-            this.angry =false;
+            this.speed = ;
+            this.rangeOffire = ;
+            this.rangeOfSee = ;
+            this.angry =true;
             break;
                     }
 }
-Enemy.prototype.list = new Array(0);
+Enemy.prototype.lit = new Array(0);
 
 Enemy.prototype.create = function(){
     Enemy.prototype.list.push(new Enemy(_type));
