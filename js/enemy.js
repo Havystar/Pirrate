@@ -179,8 +179,8 @@ Enemy.prototype.drawAll = function(){
 Enemy.prototype.swim = function(){
 var length=this.dirX+this.dirY;
      if(length !== 0) {
-        this.x = this.dirX/length * deltaTime;
-        this.y = this.dirY/length * deltaTime;
+        this.x += this.dirX/length * deltaTime;
+        this.y += this.dirY/length * deltaTime;
     } 
     if(length==this.x+this.y){
         this.dirY = Math.floor((Math.random() * canvas.height) + 10);
