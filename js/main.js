@@ -13,9 +13,12 @@ Ship.image.src = 'img/statek.png';
 function main(){
     setScreen();
     Ship.prototype.create(15,8);
-    document.addEventListener("click", Ship.prototype.list[0].swim);
+    canvas.addEventListener("click", go);
     tick();
 
+}
+function go(e){
+    Ship.prototype.list[0].setTarget(e);
 }
 function tick(){
     now = Date.now();
@@ -32,15 +35,15 @@ function tick(){
         
 	}
     
-
+    Ship.prototype.list[0].swim();
 	draw();
     last = now;
 	requestAnimationFrame(tick);
 }
 function draw(){
     map.draw();
+    Enemy.prototype.drawAll();
     Ship.prototype.list[0].draw();
-   // Enemy.prototype.drawAll[list.length]();
 }
 
 function goFullScreen(){
