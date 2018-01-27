@@ -24,7 +24,7 @@ Ship.prototype.draw = function(){
     ctx.translate(this.x, this.y);
     if(this.y < this.targetY) ctx.rotate((this.angle-180) * Math.PI / 180);
     ctx.rotate(this.angle * Math.PI / 180);
-    ctx.drawImage(Ship.image, -32, -32);
+    ctx.drawImage(Ship.image, -32 * px, -32 * px, 64 * px, 64 * px);
     ctx.restore();
 }
 Ship.prototype.setTarget = function(e){

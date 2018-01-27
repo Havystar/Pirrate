@@ -6,9 +6,9 @@ var frame; //mnoznik klatki (gdy chcesz coś umieścić na 3 klatce wpisz this.x
 var deltaTime, now, last;
 
 var water = new Image();
-water.src = 'img/woda.png';
+water.src = 'img/water.jpg';
 Ship.image = new Image();
-Ship.image.src = 'img/statek.png';
+Ship.image.src = 'img/ship.png';
 
 function main(){
     setScreen();
