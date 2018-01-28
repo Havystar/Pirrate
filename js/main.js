@@ -5,6 +5,8 @@ var px; //względne pixele, są rzeczywiste dla rozdzielczości 1920/1080//gdy p
 var frame; //mnoznik klatki (gdy chcesz coś umieścić na 3 klatce wpisz this.x = 3 * frame)
 var deltaTime, now, last;
 
+var money = 0;
+
 var water = new Image();
 water.src = 'img/water.jpg';
 Ship.image = new Image();
@@ -16,12 +18,16 @@ Map.island.src = 'img/island.png';
 Treasure.image = new Image();
 Treasure.image.src = 'img/treasure.png';
 
+var moneyAudio = new Audio();
+moneyAudio.src = 'msc/monety2.wav';
+
 
 
 
 function main(){
     setScreen();
     Ship.prototype.create(15,8);
+    Treasure.prototype.create(15*frame, 8*frame, 100);
     canvas.addEventListener("click", go);
     tick();
 
@@ -45,14 +51,21 @@ function tick(){
 	}
     
     Ship.prototype.list[0].swim();
+    
+    update();
 	draw();
     last = now;
 	requestAnimationFrame(tick);
 }
+function update(){
+    Treasure.prototype.updateAll();
+}
 function draw(){
     map.draw();
+    Treasure.prototype.drawAll();
     Enemy.prototype.drawAll();
     Ship.prototype.list[0].draw();
+    
 }
 
 function goFullScreen(){
