@@ -13,6 +13,9 @@ Ship.target = new Image();
 Ship.target.src = 'img/target.png';
 Map.island = new Image();
 Map.island.src = 'img/island.png';
+Treasure.image = new Image();
+Treasure.image.src = 'img/treasure.png';
+
 
 
 

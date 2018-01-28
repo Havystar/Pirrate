@@ -40,10 +40,13 @@ Ship.prototype.draw = function(){
 }
 Ship.prototype.setTarget = function(e){
     //console.log(Math.pow(this.x - e.screenX, 2) + Math.pow(this.y - e.screenY, 2));
-    if(Math.pow(this.x - e.screenX, 2) + Math.pow(this.y - e.screenY, 2) > 900 ){
-        this.haveTarget = true;
-        this.targetX = e.screenX;
-        this.targetY = e.screenY;
+    if(Math.pow(this.x - e.screenX, 2) + Math.pow(this.y - e.screenY, 2) > 900 * px ){
+       
+            this.haveTarget = true;
+            this.targetX = e.screenX;
+            this.targetY = e.screenY;
+        
+        
     }
     //------------------------------------------------jeżeli kliknięcie znajduje się o pierwiastek z 900 od statku, obiera to miejsce za cel
     
