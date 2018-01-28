@@ -22,8 +22,14 @@ Ship.prototype.draw = function(){
     console.log("angle: "+this.angle);
     ctx.save();
     ctx.translate(this.x, this.y);
-    if(this.y < this.targetY) ctx.rotate((this.angle-180) * Math.PI / 180);
-    ctx.rotate(this.angle * Math.PI / 180);
+    if(this.y < this.targetY){
+        ctx.rotate (180 * Math.PI / 180);
+        ctx.rotate(-this.angle * Math.PI / 180);
+    }
+    else{
+        ctx.rotate(this.angle * Math.PI / 180);
+    }
+    
     ctx.drawImage(Ship.image, -32 * px, -32 * px, 64 * px, 64 * px);
     ctx.restore();
 }
