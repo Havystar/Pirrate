@@ -1,0 +1,8 @@
+main{
+	display: block;
+	border: 1px solid black;
+	margin: auto;
+	width: 40%;
+	padding-bottom: 1%;
+	text-align: center;
+}
