@@ -9,6 +9,12 @@ var water = new Image();
 water.src = 'img/water.jpg';
 Ship.image = new Image();
 Ship.image.src = 'img/ship.png';
+Ship.target = new Image();
+Ship.target.src = 'img/target.png';
+Map.island = new Image();
+Map.island.src = 'img/island.png';
+
+
 
 function main(){
     setScreen();
