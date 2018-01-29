@@ -6,9 +6,12 @@ function Ship(_x, _y){
     this.dirY = 0;
     this.targetX = this.x; //x celu do którego płynie
     this.targetY = this.y; //y celu do którego płynie
+    this.speed = 5;
     this.length = 1;
     this.sinus;
     this.haveTarget = false; //czy ma cel do którego płynie 
+    
+
 }
 Ship.prototype.list = new Array(0);
 
@@ -72,13 +75,41 @@ Ship.prototype.swim = function(){
     }
     //console.log("lenght: "+this.length);
     if(this.length > 5){
-        this.x += this.dirX*deltaTime*1*frame;
-        this.y += this.dirY*deltaTime*1*frame;
+        this.x += this.dirX*deltaTime*this.speed*frame;
+        this.y += this.dirY*deltaTime*this.speed*frame;
     }
     //--------------------------------------------ruch
+    
+    
+}
+Ship.prototype.update = function(){
     if(Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20 ) this.haveTarget = false;
     //----------------------------------------------jeżeli statek znajduje się przy celu, przestaje rysować strzałki
-    //console.log(deltaTime);
-    
+    if(this.y < 50){
+        actuallMap++;
+        this.y = 1000;
+        this.targetY = 950;
+    }
+    if(this.y > 1000){
+        actuallMap--;
+        this.y = 50;
+        this.targetY = 100;
+    }
+    if(this.x > 1870){
+        actuallMap += 2;
+        this.x = 50;
+        this.targetX = 100;
+    }
+    if(this.x < 50){
+        actuallMap -= 2;
+        this.x = 1870;
+        this.targetX = 1820;
+    }
+}
+Ship.prototype.updateAll = function(){
+    for(let i = 0; i < Ship.prototype.list.length; i++){
+        Ship.prototype.list[i].update();
+        
+    }
 }
 var ship = new Ship();

@@ -5,7 +5,9 @@ var px; //względne pixele, są rzeczywiste dla rozdzielczości 1920/1080//gdy p
 var frame; //mnoznik klatki (gdy chcesz coś umieścić na 3 klatce wpisz this.x = 3 * frame)
 var deltaTime, now, last;
 
+var actuallMap = 1;
 var money = 0;
+
 
 var water = new Image();
 water.src = 'img/water.jpg';
@@ -58,10 +60,24 @@ function tick(){
 	requestAnimationFrame(tick);
 }
 function update(){
+    Ship.prototype.updateAll();
     Treasure.prototype.updateAll();
 }
 function draw(){
-    map.draw();
+    switch(actuallMap){
+        case 1:
+            map1.draw();
+            break;
+        case 2:
+            map2.draw();
+            break;
+        case 3:
+            map3.draw();
+            break;
+        case 4:
+            map4.draw();
+            break;
+    }
     Treasure.prototype.drawAll();
     Enemy.prototype.drawAll();
     Ship.prototype.list[0].draw();

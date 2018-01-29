@@ -6,3 +6,15 @@ main{
 	padding-bottom: 1%;
 	text-align: center;
 }
+table{
+    border-collapse: collapse;
+    //width: 100%;
+    //height: 100%;
+}
+table, tr, td{
+    border: 1px solid black;
+}
+tr, td{
+    height: 40px;
+    width: 64px;
+}

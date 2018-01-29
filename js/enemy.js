@@ -3,6 +3,7 @@ function Enemy(_type){
     this.y = Math.floor((Math.random() * canvas.height) + 10);
     this.type = _type;
     this.sighted = false;
+    //this.celWZyciu = true;
     this.dirX =  this.x;
     this.dirY =  this.y;
     
@@ -133,65 +134,114 @@ Enemy.prototype.create = function(){
 }
 
 Enemy.prototype.draw = function(){
+    if(Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20 ){
+        this.Enemy.setTarget();
+}
+    //-----------------------------------------BENIO MOŻE BYĆ TAK CZY TO NIE ZADZIAŁA? tzn chodzi o samo this.Enemy zadziała
+    
+    
+    if(this.length != 0) this.sinus = (this.targetX - this.x)/this.length;
+    else this.sinus = 0;
+    this.angle = Math.asin(this.sinus) * 180/Math.PI;
+    //console.log("angle: "+this.angle);
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    if(this.y < this.targetY){
+        ctx.rotate (180 * Math.PI / 180);
+        ctx.rotate(-this.angle * Math.PI / 180);
+    }
+    else{
+        ctx.rotate(this.angle * Math.PI / 180);
+    }
+    //------------------------------------------------obracanie
+
         switch(this.type){
             
             case 0:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 1:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 2:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 3:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 4:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 5:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 6:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                 
             case 7:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
+                
              case 8:
-                ctx.drawImage(this.name.image, this.x, this.y);
+                ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
                 break;
                         }
+    ctx.restore();
 }
 Enemy.prototype.drawAll = function(){
     for(var i = 0; i<Enemy.prototype.list.length; i++){
         Enemy.prototype.list[i].draw();     
     }
 }
+    
+Enemy.prototype.setTarget = function(){
+    //console.log(Math.pow(this.x - e.screenX, 2) + Math.pow(this.y - e.screenY, 2));
+    
+            this.targetX = Math.floor((Math.random() * canvas.width-30) + 15);
+            this.targetY = Math.floor((Math.random() * canvas.height-30) + 15);
+    
+   
+    
+    //console.log("screenX: "+e.screenX);
+    //console.log("screenY: "+e.screenY);
+}
 
 Enemy.prototype.swim = function(){
-var length=this.dirX+this.dirY;
-     if(length !== 0) {
-        this.x += this.dirX/length * deltaTime;
-        this.y += this.dirY/length * deltaTime;
+    //console.log("targetX: "+this.targetX);
+    //console.log("this.x" +this.x)
+    this.dirX += this.targetX-this.x;
+    this.dirY += this.targetY-this.y;
+    //console.log("dirX: "+this.dirX);
+    //console.log("dirY: "+this.dirY);
+    this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
+   if(this.length != 0) {
+        this.dirX /= this.length;
+        this.dirY /= this.length;//dzieli kierunek przez długość, żeby niezależnie od długości odcinka iśc z tą samą prędkością 
     } 
-    if(length==this.x+this.y){
-        this.dirY = Math.floor((Math.random() * canvas.height) + 10);
-        this.dirX = Math.floor((Math.random() * canvas.width) + 10);
-}
+    else {
+        this.dirX = 0;
+        this.dirY = 0;
+    }
+    //console.log("lenght: "+this.length);
+    if(this.length > 5){
+        this.x += this.dirX*deltaTime*1*frame;
+        this.y += this.dirY*deltaTime*1*frame;
+    }
 }
 Enemy.prototype.alive = function(){
- if(this.life==0){
-    this.x = Math.floor((Math.random() * canvas.width) + 10);
-    this.y = Math.floor((Math.random() * canvas.height) + 10);
+ if(this.life<=0){
+    this.x = Math.floor((Math.random() * canvas.width-30) + 15);
+    this.y = Math.floor((Math.random() * canvas.height-30) + 15);
+    money+=this.money;
     this.life=this.maxlife;
- }   
+ }
 }
+   
+
