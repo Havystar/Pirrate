@@ -11,119 +11,119 @@ function Enemy(_type){
         case 0:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false; //angry oznacza czy nas atakuje od razu czy nie
+            this.angry = false; //angry oznacza czy nas atakuje od razu czy nie
              //Powstawiałem losowe wartości, żeby reszta kodu działała, gdy się to doczepi - B
             
             break;
         case 1:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
             
         case 2:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
             
         case 3:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
             
         case 4:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
              
         case 5:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
              
         case 6:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
              
         case 7:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
              
         case 8:
             this.life = 200;
             this.maxlife = 200;
-            this.name = Jakub;
+            this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
             this.rangeOfSee = 0;
-            this.angry =false;
+            this.angry = false;
             break;
                     }
 }
@@ -140,7 +140,7 @@ Enemy.prototype.draw = function(){
     //-----------------------------------------BENIO MOŻE BYĆ TAK CZY TO NIE ZADZIAŁA? tzn chodzi o samo this.Enemy zadziała
     
     
-    if(this.length != 0) this.sinus = (this.targetX - this.x)/this.length;
+    if(this.length !== 0) this.sinus = (this.targetX - this.x)/this.length;
     else this.sinus = 0;
     this.angle = Math.asin(this.sinus) * 180/Math.PI;
     //console.log("angle: "+this.angle);
@@ -194,6 +194,7 @@ Enemy.prototype.draw = function(){
                 break;
                         }
     ctx.restore();
+  
 }
 Enemy.prototype.drawAll = function(){
     for(var i = 0; i<Enemy.prototype.list.length; i++){
@@ -221,7 +222,7 @@ Enemy.prototype.swim = function(){
     //console.log("dirX: "+this.dirX);
     //console.log("dirY: "+this.dirY);
     this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
-   if(this.length != 0) {
+   if(this.length !== 0) {
         this.dirX /= this.length;
         this.dirY /= this.length;//dzieli kierunek przez długość, żeby niezależnie od długości odcinka iśc z tą samą prędkością 
     } 
@@ -237,8 +238,10 @@ Enemy.prototype.swim = function(){
 }
 Enemy.prototype.alive = function(){
  if(this.life<=0){
+    while(Math.abs(Ship.x-this.x)<=350 || Math.abs(Ship.y-this.y)<=350) {
     this.x = Math.floor((Math.random() * canvas.width-30) + 15);
     this.y = Math.floor((Math.random() * canvas.height-30) + 15);
+    }
     money+=this.money;
     this.life=this.maxlife;
  }
