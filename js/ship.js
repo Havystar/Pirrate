@@ -89,21 +89,33 @@ Ship.prototype.update = function(){
         actuallMap++;
         this.y = 1000;
         this.targetY = 950;
+        for(let i = 0; i < Treasure.prototype.list.length; i++){
+            Treasure.prototype.list[i].y += canvas.height *px;
+        }
     }
     if(this.y > 1000){
         actuallMap--;
         this.y = 50;
         this.targetY = 100;
+        for(let i = 0; i < Treasure.prototype.list.length; i++){
+            Treasure.prototype.list[i].y -=  canvas.height *px;
+        }
     }
     if(this.x > 1870){
         actuallMap += 2;
         this.x = 50;
         this.targetX = 100;
+        for(let i = 0; i < Treasure.prototype.list.length; i++){
+            Treasure.prototype.list[i].x -= canvas.width * px;
+        }
     }
     if(this.x < 50){
         actuallMap -= 2;
         this.x = 1870;
         this.targetX = 1820;
+        for(let i = 0; i < Treasure.prototype.list.length; i++){
+            Treasure.prototype.list[i].x += canvas.width * px;
+        }
     }
 }
 Ship.prototype.updateAll = function(){
