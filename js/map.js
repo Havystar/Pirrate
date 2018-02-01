@@ -125,7 +125,7 @@ function Map(_table){
                 ctx.restore();
                 
                 if(this.table[i][o] < 3){
-                    if(Math.abs(o*frame - Ship.prototype.list[0].x) < 64 && Math.abs(i*frame - Ship.prototype.list[0].y) < 64*px){
+                    if(Math.abs(o*frame - Ship.prototype.list[0].x) < 30*px && Math.abs(i*frame - Ship.prototype.list[0].y) < 30*px){
                     Ship.prototype.list[0].targetX = Ship.prototype.list[0].x;
                     Ship.prototype.list[0].targetY = Ship.prototype.list[0].y;
                     
