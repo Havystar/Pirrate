@@ -28,7 +28,7 @@ moneyAudio.src = 'msc/monety2.wav';
 
 function main(){
     setScreen();
-    Ship.prototype.create(15,8);
+    Ship.prototype.create(12,15);
     Treasure.prototype.create(15*frame, 8*frame, 100);
     canvas.addEventListener("click", go);
     tick();

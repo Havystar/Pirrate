@@ -1,3 +1,1 @@
-# Pirrate
-
-xDD
+Poważny projekt poważnych ludzi o poważnych piratach .
