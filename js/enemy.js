@@ -212,7 +212,7 @@ Enemy.prototype.drawAll = function () {
     for (var i = 0; i < Enemy.prototype.list.length; i++) {
         Enemy.prototype.list[i].draw();
     }
-    
+
 }
 
 Enemy.prototype.setTarget = function () {
@@ -221,28 +221,37 @@ Enemy.prototype.setTarget = function () {
     this.targetY = Math.floor((Math.random() * canvas.height - 30) + 15);
 }
 
-function follow(){
-    
+//pojedyncze funkcje odpowiadajace za podazanie strzał abordarz i uspokajanie sie
+function follow() {
+
     this.targetX = Ship.x - this.x;
     this.targetY = Ship.y - this.y;
-    this.lenght = Math.abs(this.dx) +  Math.abs(this.dy);
-    
+    this.lenght = Math.abs(this.dx) + Math.abs(this.dy);
+
 }
 
-function shot(){
-    
-    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfFire){
-    Ship.life-=this.demage;
-    shotAudio.play();
-    
+function shot() {
+
+    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfFire) {
+        Ship.life -= this.demage;
+        shotAudio.play();
+
+    }
 }
+
+function bording() {
+
+    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= 5) {
+        Ship.crew -= this.crew;
+        this.crew = 0;
+        alert("Abordaż");
+    }
 }
-function bording(){
-    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= 5){
-    Ship.crew-=this.crew;
-    this.crew=0;
-    alert("Abordaż");
-}
+
+function angryStop() {
+
+    setTimeout(function(){this.angry=this.startAngry;}, 3000);
+
 }
 
 
@@ -275,13 +284,12 @@ Enemy.prototype.update = function () {
     this.dirX += this.targetX - this.x;
     this.dirY += this.targetY - this.y;
     this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
-    
+
     if (this.length !== 0) {
 
         this.dirX /= this.length;
         this.dirY /= this.length; //dzieli kierunek przez długość, żeby niezależnie od długości odcinka iśc z tą samą prędkością    
-        }
-    else {
+    } else {
 
         this.dirX = 0;
         this.dirY = 0;
@@ -299,10 +307,14 @@ Enemy.prototype.update = function () {
         shot();
         bording();
 
+    } else if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) > this.rangeOfSee && this.angry) {
+
+        angryStop();
+
     }
 
     //sprawdza czy jest u celu jak tak to daje mu nowy cel jeśli nie widzi Graczaa i nie jest wkurzony
-    else if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20) {
+    else if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20 && this.angry == false) {
         this.Enemy.setTarget();
     }
 
@@ -321,7 +333,7 @@ Enemy.prototype.updateAll = function (DeltaTime) {
 }
 
 Enemy.prototype.alive = function () {
-    if (this.life <= 0 || this.crew <=0 ) {
+    if (this.life <= 0 || this.crew <= 0) {
         while (Math.abs(Ship.x - this.x) <= 350 || Math.abs(Ship.y - this.y) <= 350) {
             this.x = Math.floor((Math.random() * canvas.width - 30) + 15);
             this.y = Math.floor((Math.random() * canvas.height - 30) + 15);
@@ -329,7 +341,7 @@ Enemy.prototype.alive = function () {
         money += this.money;
         this.life = this.maxlife;
         this.angry = this.startAngry;
-        this.crew = (this.maxlife/10);
+        this.crew = (this.maxlife / 10);
     }
 }
 var enemy = new Enemy(0);
