@@ -11,7 +11,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
-            this.name = "Jakub";
+            this.name = "Franek";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
@@ -223,27 +223,28 @@ Enemy.prototype.setTarget = function () {
 
 function follow(){
     
-    this.targetX = player.x - this.x;
-    this.targetY = player.y - this.y;
+    this.targetX = Ship.x - this.x;
+    this.targetY = Ship.y - this.y;
     this.lenght = Math.abs(this.dx) +  Math.abs(this.dy);
     
 }
 
 function shot(){
     
-    if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= this.rangeOfFire){
+    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfFire){
     Ship.life-=this.demage;
     shotAudio.play();
     
 }
 }
 function bording(){
-    if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= 5){
+    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= 5){
     Ship.crew-=this.crew;
     this.crew=0;
     alert("Abordaż");
 }
 }
+
 
 /*
 Enemy.prototype.swim = function(){
@@ -292,7 +293,7 @@ Enemy.prototype.update = function () {
         this.y += this.dirY * deltaTime * 1 * frame;
     }
     //podązanie i strzał jeśli go widzi
-    if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= this.rangeOfSee || this.angry) {
+    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfSee && this.angry) {
 
         follow();
         shot();
@@ -331,3 +332,4 @@ Enemy.prototype.alive = function () {
         this.crew = (this.maxlife/10);
     }
 }
+var enemy = new Enemy(0);
