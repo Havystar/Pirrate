@@ -22,6 +22,8 @@ Treasure.image.src = 'img/treasure.png';
 
 var moneyAudio = new Audio();
 moneyAudio.src = 'msc/monety2.wav';
+var shotAudio = new Audio();
+shotAudio.src = 'msc/Salwa2.wav';
 
 
 

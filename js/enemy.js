@@ -10,6 +10,7 @@ function Enemy(_type) {
         case 0:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -25,6 +26,7 @@ function Enemy(_type) {
         case 1:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -39,6 +41,7 @@ function Enemy(_type) {
         case 2:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -53,6 +56,7 @@ function Enemy(_type) {
         case 3:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -67,6 +71,7 @@ function Enemy(_type) {
         case 4:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -81,6 +86,7 @@ function Enemy(_type) {
         case 5:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -95,6 +101,7 @@ function Enemy(_type) {
         case 6:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -109,6 +116,7 @@ function Enemy(_type) {
         case 7:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -123,6 +131,7 @@ function Enemy(_type) {
         case 8:
             this.life = 200;
             this.maxlife = 200;
+            this.crew = 20;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -220,6 +229,22 @@ function follow(){
     
 }
 
+function shot(){
+    
+    if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= this.rangeOfFire){
+    Ship.life-=this.demage;
+    shotAudio.play();
+    
+}
+}
+function bording(){
+    if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= 5){
+    Ship.crew-=this.crew;
+    this.crew=0;
+    alert("Abordaż");
+}
+}
+
 /*
 Enemy.prototype.swim = function(){
     //console.log("targetX: "+this.targetX);
@@ -270,7 +295,8 @@ Enemy.prototype.update = function () {
     if (Math.sqrt(Math.pow(this.x - player.x) + Math.pow(this.y - player.y)) <= this.rangeOfSee || this.angry) {
 
         follow();
-       // shot();
+        shot();
+        bording();
 
     }
 
@@ -294,7 +320,7 @@ Enemy.prototype.updateAll = function (DeltaTime) {
 }
 
 Enemy.prototype.alive = function () {
-    if (this.life <= 0) {
+    if (this.life <= 0 || this.crew <=0 ) {
         while (Math.abs(Ship.x - this.x) <= 350 || Math.abs(Ship.y - this.y) <= 350) {
             this.x = Math.floor((Math.random() * canvas.width - 30) + 15);
             this.y = Math.floor((Math.random() * canvas.height - 30) + 15);
@@ -302,5 +328,6 @@ Enemy.prototype.alive = function () {
         money += this.money;
         this.life = this.maxlife;
         this.angry = this.startAngry;
+        this.crew = (this.maxlife/10);
     }
 }

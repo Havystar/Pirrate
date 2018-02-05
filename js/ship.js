@@ -8,6 +8,9 @@ function Ship(_x, _y){
     this.targetY = this.y; //y celu do którego płynie
     this.speed = 5;
     this.length = 1;
+    this.life = 100;
+    this.crew = 50;
+    this.damage = 50;
     this.sinus;
     this.haveTarget = false; //czy ma cel do którego płynie 
     
@@ -116,6 +119,9 @@ Ship.prototype.update = function(){
         for(let i = 0; i < Treasure.prototype.list.length; i++){
             Treasure.prototype.list[i].x += canvas.width * px;
         }
+    }
+    if(this.life <=0 || this.crew <= 0){
+        alert("UMARŁEŚ");
     }
 }
 Ship.prototype.updateAll = function(){
