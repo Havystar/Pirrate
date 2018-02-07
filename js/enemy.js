@@ -146,7 +146,7 @@ function Enemy(_type) {
 }
 Enemy.prototype.list = new Array(0);
 
-Enemy.prototype.create = function () {
+Enemy.prototype.create = function (_type) {
     Enemy.prototype.list.push(new Enemy(_type));
 }
 
@@ -170,7 +170,7 @@ Enemy.prototype.draw = function () {
     switch (this.type) {
 
         case 0:
-            ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
+            ctx.drawImage(jakubImage, this.x - 32 * px, this.y -32 * px,64 * px, 64 * px);
             break;
 
         case 1:

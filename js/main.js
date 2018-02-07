@@ -20,6 +20,9 @@ Map.island.src = 'img/island.png';
 Treasure.image = new Image();
 Treasure.image.src = 'img/treasure.png';
 
+var jakubImage = new Image();
+jakubImage.src = 'img/jakub.png';
+
 var moneyAudio = new Audio();
 moneyAudio.src = 'msc/monety2.wav';
 var shotAudio = new Audio();
@@ -31,6 +34,7 @@ shotAudio.src = 'msc/Salwa2.wav';
 function main(){
     setScreen();
     Ship.prototype.create(12,15);
+    Enemy.prototype.create(0);
     Treasure.prototype.create(15*frame, 8*frame, 100);
     canvas.addEventListener("click", go);
     tick();
