@@ -59,6 +59,7 @@ function tick(){
 	}
     
     Ship.prototype.list[0].swim();
+    Enemy.prototype.swimAll();
     
     update();
 	draw();
@@ -67,6 +68,7 @@ function tick(){
 }
 function update(){
     Ship.prototype.updateAll();
+    Enemy.prototype.updateAll();
     Treasure.prototype.updateAll();
 }
 function draw(){

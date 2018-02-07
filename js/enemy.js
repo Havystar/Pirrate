@@ -1,10 +1,14 @@
 function Enemy(_type) {
-    this.x = Math.floor((Math.random() * canvas.width) + 10);
-    this.y = Math.floor((Math.random() * canvas.height) + 10);
+    this.x = Math.floor((Math.random() * 1660) + 130);
+    this.y = Math.floor((Math.random() * 870) + 112);
+    this.sinus;
+    //this.targetX = this.x; //x celu do którego płynie
+    //this.targetY = this.y; //y celu do którego płynie
     this.type = _type;
     this.sighted = false;
     this.dirX = this.x;
     this.dirY = this.y;
+
 
     switch (this.type) {
         case 0:
@@ -153,18 +157,18 @@ Enemy.prototype.create = function (_type) {
 Enemy.prototype.draw = function () {
 
 
-    if (this.length !== 0) this.sinus = (this.targetX - this.x) / this.length;
-    else this.sinus = 0;
-    this.angle = Math.asin(this.sinus) * 180 / Math.PI;
+  //  if (this.length !== 0) this.sinus = (this.targetX - this.x) / this.length;
+  //  else this.sinus = 0;
+ //   this.angle = Math.asin(this.sinus) * 180 / Math.PI;
     //console.log("angle: "+this.angle);
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    if (this.y < this.targetY) {
-        ctx.rotate(180 * Math.PI / 180);
-        ctx.rotate(-this.angle * Math.PI / 180);
-    } else {
-        ctx.rotate(this.angle * Math.PI / 180);
-    }
+  //  ctx.save();
+  //  ctx.translate(this.x, this.y);
+ //   if (this.y < this.targetY) {
+ //       ctx.rotate(180 * Math.PI / 180);
+  //      ctx.rotate(-this.angle * Math.PI / 180);
+ //   } else {
+  //      ctx.rotate(this.angle * Math.PI / 180);
+  //  }
     //------------------------------------------------obracanie
 
     switch (this.type) {
@@ -205,7 +209,7 @@ Enemy.prototype.draw = function () {
             ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
             break;
     }
-    ctx.restore();
+  //  ctx.restore();
 
 }
 Enemy.prototype.drawAll = function () {
@@ -217,8 +221,8 @@ Enemy.prototype.drawAll = function () {
 
 Enemy.prototype.setTarget = function () {
 
-    this.targetX = Math.floor((Math.random() * canvas.width - 30) + 15);
-    this.targetY = Math.floor((Math.random() * canvas.height - 30) + 15);
+    this.targetX = Math.floor((Math.random() * 1660) + 130);
+    this.targetY = Math.floor((Math.random() * 870) + 112);
 }
 
 //pojedyncze funkcje odpowiadajace za podazanie strzał abordarz i uspokajanie sie
@@ -255,7 +259,7 @@ function angryStop() {
 }
 
 
-/*
+
 Enemy.prototype.swim = function(){
     //console.log("targetX: "+this.targetX);
     //console.log("this.x" +this.x)
@@ -278,9 +282,16 @@ Enemy.prototype.swim = function(){
         this.y += this.dirY*deltaTime*1*frame;
     }
 }
-*/
-Enemy.prototype.update = function () {
 
+Enemy.prototype.swimAll = function () {
+    for (var i = 0; i < Enemy.prototype.list.length; i++) {
+        Enemy.prototype.list[i].swim();
+    }
+
+}
+
+Enemy.prototype.update = function () {
+/*
     this.dirX += this.targetX - this.x;
     this.dirY += this.targetY - this.y;
     this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
@@ -300,6 +311,7 @@ Enemy.prototype.update = function () {
         this.x += this.dirX * deltaTime * 1 * frame;
         this.y += this.dirY * deltaTime * 1 * frame;
     }
+    */
     //podązanie i strzał jeśli go widzi
     if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfSee && this.angry) {
 
@@ -325,7 +337,7 @@ Enemy.prototype.update = function () {
 
 }
 
-Enemy.prototype.updateAll = function (DeltaTime) {
+Enemy.prototype.updateAll = function () {
     for (var i = 0; i < Enemy.prototype.list.length; i++) {
         Enemy.prototype.list[i].update();
     }
@@ -335,8 +347,8 @@ Enemy.prototype.updateAll = function (DeltaTime) {
 Enemy.prototype.alive = function () {
     if (this.life <= 0 || this.crew <= 0) {
         while (Math.abs(Ship.x - this.x) <= 350 || Math.abs(Ship.y - this.y) <= 350) {
-            this.x = Math.floor((Math.random() * canvas.width - 30) + 15);
-            this.y = Math.floor((Math.random() * canvas.height - 30) + 15);
+            this.x = Math.floor((Math.random() * 1660) + 130);
+            this.y = Math.floor((Math.random() * 870) + 112);;
         }
         money += this.money;
         this.life = this.maxlife;
@@ -344,4 +356,3 @@ Enemy.prototype.alive = function () {
         this.crew = (this.maxlife / 10);
     }
 }
-var enemy = new Enemy(0);
