@@ -1,6 +1,6 @@
 function Enemy(_type) {
-    this.x = Math.floor((Math.random() * 1660) + 130);
-    this.y = Math.floor((Math.random() * 870) + 112);
+    this.x = Math.floor((Math.random() * 1660) + 130) * px - 32;
+    this.y = Math.floor((Math.random() * 870) + 112) * px - 32;
     this.sinus;
     //this.targetX = this.x; //x celu do którego płynie
     //this.targetY = this.y; //y celu do którego płynie
@@ -8,6 +8,8 @@ function Enemy(_type) {
     this.sighted = false;
     this.dirX = this.x;
     this.dirY = this.y;
+    this.targetX = this.x;
+    this.targetY = this.y;
 
 
     switch (this.type) {
@@ -21,7 +23,7 @@ function Enemy(_type) {
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
-            this.rangeOfSee = 0;
+            this.rangeOfSee = 100;
             this.angry = false; //angry oznacza czy nas atakuje od razu czy nie
             this.startAngry = false; //angry oznacza czy nas atakuje od razu czy nie
             //Powstawiałem losowe wartości, żeby reszta kodu działała, gdy się to doczepi - B
@@ -313,26 +315,31 @@ Enemy.prototype.update = function () {
     }
     */
     //podązanie i strzał jeśli go widzi
-    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfSee && this.angry) {
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOfSee && this.angry) {
 
         follow();
         shot();
         bording();
+        console.log(1);
 
-    } else if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) > this.rangeOfSee && this.angry) {
+    } else if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) > this.rangeOfSee && this.angry) {
 
         angryStop();
+        console.log(2);
 
     }
 
+
     //sprawdza czy jest u celu jak tak to daje mu nowy cel jeśli nie widzi Graczaa i nie jest wkurzony
-    else if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20 && this.angry == false) {
-        this.Enemy.setTarget();
+    else if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 200 && this.angry == false) {
+        this.setTarget();
+        console.log(3);
     }
 
     //staje się zły jak oberwie
     if (this.life < this.maxlife) {
         this.angry = true;
+        console.log(4);
     }
 
 }

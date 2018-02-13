@@ -95,6 +95,9 @@ Ship.prototype.update = function(){
         for(let i = 0; i < Treasure.prototype.list.length; i++){
             Treasure.prototype.list[i].y += canvas.height *px;
         }
+        for(let i = 0; i < Enemy.prototype.list.length; i++){
+            Enemy.prototype.list[i].y += canvas.height *px;
+        }
     }
     if(this.y > 1000){
         actuallMap--;
@@ -102,6 +105,9 @@ Ship.prototype.update = function(){
         this.targetY = 100;
         for(let i = 0; i < Treasure.prototype.list.length; i++){
             Treasure.prototype.list[i].y -=  canvas.height *px;
+        }
+        for(let i = 0; i < Enemy.prototype.list.length; i++){
+            Enemy.prototype.list[i].y -= canvas.height *px;
         }
     }
     if(this.x > 1870){
@@ -111,6 +117,9 @@ Ship.prototype.update = function(){
         for(let i = 0; i < Treasure.prototype.list.length; i++){
             Treasure.prototype.list[i].x -= canvas.width * px;
         }
+        for(let i = 0; i < Enemy.prototype.list.length; i++){
+            Enemy.prototype.list[i].x += canvas.width *px;
+        }
     }
     if(this.x < 50){
         actuallMap -= 2;
@@ -118,6 +127,9 @@ Ship.prototype.update = function(){
         this.targetX = 1820;
         for(let i = 0; i < Treasure.prototype.list.length; i++){
             Treasure.prototype.list[i].x += canvas.width * px;
+        }
+        for(let i = 0; i < Enemy.prototype.list.length; i++){
+            Treasure.prototype.list[i].x += canvas.width *px;
         }
     }
     if(this.life <=0 || this.crew <= 0){
