@@ -17,14 +17,15 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Franek";
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
-            this.rangeOfSee = 100;
-            this.angry = false; //angry oznacza czy nas atakuje od razu czy nie
+            this.rangeOfSee = 500;
+            this.angry = true; //angry oznacza czy nas atakuje od razu czy nie
             this.startAngry = false; //angry oznacza czy nas atakuje od razu czy nie
             //Powstawiałem losowe wartości, żeby reszta kodu działała, gdy się to doczepi - B
 
@@ -33,6 +34,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -48,6 +50,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -63,6 +66,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -78,6 +82,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -93,6 +98,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -108,6 +114,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -123,6 +130,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = false;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -138,6 +146,7 @@ function Enemy(_type) {
             this.life = 200;
             this.maxlife = 200;
             this.crew = 20;
+            this.monster = true;
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
@@ -228,18 +237,21 @@ Enemy.prototype.setTarget = function () {
 }
 
 //pojedyncze funkcje odpowiadajace za podazanie strzał abordarz i uspokajanie sie
-function follow() {
-
-    this.targetX = Ship.x - this.x;
-    this.targetY = Ship.y - this.y;
-    this.lenght = Math.abs(this.dx) + Math.abs(this.dy);
-
+Enemy.prototype.follow = function () {
+    if(this.monster){
+        this.targetX = Ship.prototype.list[0].x;
+        this.targetY = Ship.prototype.list[0].y;
+}
+    else{
+        this.targetX = Ship.prototype.list[0].x - 25;
+        this.targetY = Ship.prototype.list[0].y - 25;
+    }
 }
 
 function shot() {
 
-    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= this.rangeOfFire) {
-        Ship.life -= this.demage;
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x) + Math.pow(this.y - Ship.prototype.list[0].y)) <= this.rangeOfFire && monster==false) {
+        Ship.prototype.list[0].life -= this.demage;
         shotAudio.play();
 
     }
@@ -247,14 +259,14 @@ function shot() {
 
 function bording() {
 
-    if (Math.sqrt(Math.pow(this.x - Ship.x) + Math.pow(this.y - Ship.y)) <= 5) {
-        Ship.crew -= this.crew;
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x) + Math.pow(this.y - Ship.prototype.list[0].y)) <= 5) {
+        Ship.prototype.list[0].crew -= this.crew;
         this.crew = 0;
         alert("Abordaż");
     }
 }
 
-function angryStop() {
+Enemy.prototype.angryStop = function () {
 
     setTimeout(function(){this.angry=this.startAngry;}, 3000);
 
@@ -317,21 +329,23 @@ Enemy.prototype.update = function () {
     //podązanie i strzał jeśli go widzi
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOfSee && this.angry) {
 
-        follow();
-        shot();
-        bording();
+        this.follow();
+      //  setTimeout(function(){shot();}, 3000); 
+       // bording();
         console.log(1);
 
-    } else if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) > this.rangeOfSee && this.angry) {
-
-        angryStop();
+    } 
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) > this.rangeOfSee && this.angry) {
+        
+        //bording();
+        this.angryStop();
         console.log(2);
 
     }
 
 
     //sprawdza czy jest u celu jak tak to daje mu nowy cel jeśli nie widzi Graczaa i nie jest wkurzony
-    else if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 200 && this.angry == false) {
+    if (Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < this.rangeOfSee) {
         this.setTarget();
         console.log(3);
     }
@@ -353,7 +367,7 @@ Enemy.prototype.updateAll = function () {
 
 Enemy.prototype.alive = function () {
     if (this.life <= 0 || this.crew <= 0) {
-        while (Math.abs(Ship.x - this.x) <= 350 || Math.abs(Ship.y - this.y) <= 350) {
+        while (Math.abs(Ship.prototype.list[0].x - this.x) <= 350 || Math.abs(Ship.prototype.list[0].y - this.y) <= 350) {
             this.x = Math.floor((Math.random() * 1660) + 130);
             this.y = Math.floor((Math.random() * 870) + 112);;
         }
