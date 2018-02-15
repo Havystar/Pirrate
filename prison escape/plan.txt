@@ -1,0 +1,44 @@
+Rzeczy do narysowania: 
+
+Gracz z armatka w rece 
+Pocisk do armaty
+Wybuch
+Tlo:
+-cele w wiezieniu 
+-sciana ze znakiem "tam sa schody"  
+Platformy 
+Monety
+Kartki
+Straznicy
+
+Rzeczy do zaprogramowania: 
+
+Glówna petla
+Platformy
+Strzelanie z armaty
+Poruszanie sie 
+Upadek w przepasc
+Kolizja z straznikiem
+Przejscie w nastepny poziom
+
+Dzwieki do nagrania: 
+
+Skok
+Upadek w przepasc
+Zebrana moneta
+Zebrana kartka
+Strzal z armaty
+Wybuch pocisku 
+Tlo muzyczne
+Straznik
+Kolizja z straznikiem
+
+--------------
+Ucieczka z wiezienia
+Gracz idzie przez budynek wiezienia
+Unika strazników, moze do nich strzelac
+Straznicy lapia tylko przez kolizje 
+Straznicy chodze w te i z powrotem po platformie
+Sterowanie WAD
+Strzelanie w cel wybrany myszka na LPM
+Rzut z boku
