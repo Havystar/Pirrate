@@ -1,4 +1,9 @@
 function start () {
+    document.getElementById("hide").style.zIndex = "-1";
+	document.getElementById("hide").innerHTML = "";
+    var canvas = document.getElementById("gra");
+    gra.width  = 1900;
+    gra.height = 950;
     Player.image = new Image();
     Player.image.src = 'res/character.png';
     txt32 = new Image();
@@ -9,7 +14,7 @@ function start () {
     rockBar.src = 'res/rock_bar.png'
     jail = new Image();
     jail.src = 'res/jail.png';
-
+    
     
    begin();
 }
