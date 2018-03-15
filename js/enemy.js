@@ -10,6 +10,8 @@ function Enemy(_type) {
     this.dirY = this.y;
     this.targetX = this.x;
     this.targetY = this.y;
+    this.fire = true;
+
 
 
     switch (this.type) {
@@ -19,6 +21,7 @@ function Enemy(_type) {
             this.crew = 20;
             this.monster = false;
             this.name = "Franek";
+            this.strelaj = false;
             this.money = 100;
             this.firerate = 1;
             this.damage = 20;
@@ -168,27 +171,26 @@ Enemy.prototype.create = function (_type) {
 Enemy.prototype.draw = function () {
 
 
-   if(this.haveTarget) ctx.drawImage(Enemy.target, this.targetX -32 * px, this.targetY -32 * px, 64 * px, 64 * px); 
+    if (this.haveTarget) ctx.drawImage(Enemy.target, this.targetX - 32 * px, this.targetY - 32 * px, 64 * px, 64 * px);
     //-----------------------------------------------jeżeli ma cel rysuje strzałki
-    
-    if(this.length != 0) this.sinus = (this.targetX - this.x)/this.length;
+
+    if (this.length != 0) this.sinus = (this.targetX - this.x) / this.length;
     else this.sinus = 0;
-    this.angle = Math.asin(this.sinus) * 180/Math.PI;
+    this.angle = Math.asin(this.sinus) * 180 / Math.PI;
     //console.log("angle: "+this.angle);
     ctx.save();
     ctx.translate(this.x, this.y);
-    if(this.y < this.targetY){
-        ctx.rotate (180 * Math.PI / 180);
+    if (this.y < this.targetY) {
+        ctx.rotate(180 * Math.PI / 180);
         ctx.rotate(-this.angle * Math.PI / 180);
-    }
-    else{
+    } else {
         ctx.rotate(this.angle * Math.PI / 180);
     }
 
     switch (this.type) {
 
         case 0:
-            ctx.drawImage(jakubImage,  -32 * px, -32 * px, 64 * px, 64 * px);
+            ctx.drawImage(jakubImage, -32 * px, -32 * px, 64 * px, 64 * px);
             break;
 
         case 1:
@@ -223,7 +225,7 @@ Enemy.prototype.draw = function () {
             ctx.drawImage(this.name.image, this.x, this.y, -32 * px, -32 * px, 64 * px, 64 * px);
             break;
     }
-   ctx.restore();
+    ctx.restore();
 
 }
 Enemy.prototype.drawAll = function () {
@@ -241,62 +243,80 @@ Enemy.prototype.setTarget = function () {
 
 //pojedyncze funkcje odpowiadajace za podazanie strzał abordarz i uspokajanie sie
 Enemy.prototype.follow = function () {
-    if(this.monster){
+    if (this.monster) {
         this.targetX = Ship.prototype.list[0].x;
         this.targetY = Ship.prototype.list[0].y;
-}
-    else{
+    } 
+    else {
         this.targetX = Ship.prototype.list[0].x - 5;
         this.targetY = Ship.prototype.list[0].y - 5;
     }
 }
 
+
 Enemy.prototype.shot = function () {
 
-   
-        setTimeout(function(){ Ship.prototype.oberwalem();}, 2000);
-        setTimeout(function(){ shotAudio.play();}, 2000);
+/*
+    var th = setInterval(movehor, 10)
+  
+    function movevert() {
+        if(x >= endX) {
+            clearInterval(t);
+            }
+            x += endX/length;
+            box.style.left = x+'px';
+        }
+    */
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire) {
+    //setInterval(function () {for (let i = 0; i < Enemy.prototype.list.length; i++) {Enemy.prototype.list[i].kkk();}}, 2000);
+    //setTimeout(function () {shotAudio.play();}, 2000);
+    this.setInterval(function () {this.fire = true;}, 2000);
+    }}
 
-     
-}
 
 Enemy.prototype.bording = function () {
 
-    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x,2) + Math.pow(this.y - Ship.prototype.list[0].y,2)) <= 25) {
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= 25) {
         Ship.prototype.list[0].crew -= this.crew;
         this.crew = 0;
         //alert("Abordaż");
     }
 }
+Enemy.prototype.kkk = function () {
+    if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire && this.angry == true && this.fire == true){
+        this.fire = false;
+        Ship.prototype.list[0].life -= this.damage;
+        shotAudio.play();
+    }
+}
 
 Enemy.prototype.angryStop = function () {
 
-    setTimeout(function(){this.angry=this.startAngry;}, 3000);
+    setTimeout(function () {this.angry = this.startAngry;}, 3000);
 
 }
 
 
 
-Enemy.prototype.swim = function(){
+Enemy.prototype.swim = function () {
     //console.log("targetX: "+this.targetX);
     //console.log("this.x" +this.x)
-    this.dirX += this.targetX-this.x;
-    this.dirY += this.targetY-this.y;
+    this.dirX += this.targetX - this.x;
+    this.dirY += this.targetY - this.y;
     //console.log("dirX: "+this.dirX);
     //console.log("dirY: "+this.dirY);
     this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
-   if(this.length !== 0) {
+    if (this.length !== 0) {
         this.dirX /= this.length;
-        this.dirY /= this.length;//dzieli kierunek przez długość, żeby niezależnie od długości odcinka iśc z tą samą prędkością 
-    } 
-    else {
+        this.dirY /= this.length; //dzieli kierunek przez długość, żeby niezależnie od długości odcinka iśc z tą samą prędkością 
+    } else {
         this.dirX = 0;
         this.dirY = 0;
     }
     //console.log("lenght: "+this.length);
-    if(this.length > 5){
-        this.x += this.dirX*deltaTime*1*frame;
-        this.y += this.dirY*deltaTime*1*frame;
+    if (this.length > 5) {
+        this.x += this.dirX * deltaTime * 1 * frame;
+        this.y += this.dirY * deltaTime * 1 * frame;
     }
 }
 
@@ -308,7 +328,7 @@ Enemy.prototype.swimAll = function () {
 }
 
 Enemy.prototype.update = function () {
-    
+
     this.alive();
     
     this.dirX += this.targetX - this.x;
@@ -330,18 +350,19 @@ Enemy.prototype.update = function () {
         this.x += this.dirX * deltaTime * 1 * frame;
         this.y += this.dirY * deltaTime * 1 * frame;
     }
-    
+
     //podązanie i strzał jeśli go widzi
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOfSee && this.angry) {
 
         this.follow();
         this.shot();
         this.bording();
-      //  console.log(1);
+        this.kkk();
+        //  console.log(1);
 
-    } 
+    }
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) > this.rangeOfSee && this.angry) {
-        
+
         this.angryStop();
         //console.log(2);
 

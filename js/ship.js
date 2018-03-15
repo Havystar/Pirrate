@@ -21,9 +21,6 @@ Ship.prototype.list = new Array(0);
 Ship.prototype.create = function(_x, _y){
     Ship.prototype.list.push(new Ship(_x, _y));
 }
-Ship.prototype.oberwalem = function(){
-    this.life-=25;
-}
 Ship.prototype.draw = function(){
     if(this.haveTarget) ctx.drawImage(Ship.target, this.targetX -32 * px, this.targetY -32 * px, 64 * px, 64 * px); 
     //-----------------------------------------------jeżeli ma cel rysuje strzałki
@@ -136,7 +133,7 @@ Ship.prototype.update = function(){
         }
     }
     if(this.life <=0 || this.crew <= 0){
-        alert("UMARŁEŚ");
+        //alert("UMARŁEŚ");
     }
 }
 Ship.prototype.updateAll = function(){
