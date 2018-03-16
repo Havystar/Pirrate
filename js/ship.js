@@ -85,7 +85,8 @@ Ship.prototype.swim = function(){
     
 }
 Ship.prototype.update = function(){
-    console.log(this.life)
+    console.log(Ship.prototype.list[0].life)
+    console.log(deltaTime)
     if(Math.pow(this.x - this.targetX, 2) + Math.pow(this.y - this.targetY, 2) < 20 ) this.haveTarget = false;
     //----------------------------------------------jeżeli statek znajduje się przy celu, przestaje rysować strzałki
     if(this.y < 50){

@@ -11,6 +11,7 @@ function Enemy(_type) {
     this.targetX = this.x;
     this.targetY = this.y;
     this.fire = true;
+    //this.counter=2;
 
 
 
@@ -21,13 +22,13 @@ function Enemy(_type) {
             this.crew = 20;
             this.monster = false;
             this.name = "Franek";
-            this.strelaj = false;
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = 2;
+            this.peacerate = 3;
             this.damage = 20;
-            this.speed = 1;
-            this.rangeOffire = 500;
-            this.rangeOfSee = 500;
+            this.speed = 0.4;
+            this.rangeOffire = 300;
+            this.rangeOfSee = 300;
             this.angry = true; //angry oznacza czy nas atakuje od razu czy nie
             this.startAngry = false; //angry oznacza czy nas atakuje od razu czy nie
             //Powstawiałem losowe wartości, żeby reszta kodu działała, gdy się to doczepi - B
@@ -40,7 +41,8 @@ function Enemy(_type) {
             this.monster = false;
             this.name = "Jakub";
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = 2;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -56,7 +58,8 @@ function Enemy(_type) {
             this.monster = false;
             this.name = "Jakub";
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = 2;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -72,7 +75,8 @@ function Enemy(_type) {
             this.monster = false;
             this.name = "Jakub";
             this.money = 100;
-            this.firerate = 1;
+            this.firerate = 2;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -89,6 +93,7 @@ function Enemy(_type) {
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -105,6 +110,7 @@ function Enemy(_type) {
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -121,6 +127,7 @@ function Enemy(_type) {
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -137,6 +144,7 @@ function Enemy(_type) {
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -153,6 +161,7 @@ function Enemy(_type) {
             this.name = "Jakub";
             this.money = 100;
             this.firerate = 1;
+            this.peacerate = 3;
             this.damage = 20;
             this.speed = 1;
             this.rangeOffire = 0;
@@ -254,23 +263,19 @@ Enemy.prototype.follow = function () {
 }
 
 
-Enemy.prototype.shot = function () {
+Enemy.prototype.kkk = function () {
 
-/*
-    var th = setInterval(movehor, 10)
-  
-    function movevert() {
-        if(x >= endX) {
-            clearInterval(t);
-            }
-            x += endX/length;
-            box.style.left = x+'px';
-        }
-    */
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire) {
+
     //setInterval(function () {for (let i = 0; i < Enemy.prototype.list.length; i++) {Enemy.prototype.list[i].kkk();}}, 2000);
     //setTimeout(function () {shotAudio.play();}, 2000);
-    this.setInterval(() => {this.fire = true;}, 2000);
+    //setInterval(() => {this.fire = true}, 2000);
+    this.firerate-=deltaTime;
+    if(this.firerate<=0){
+        this.fire = true
+        this.firerate = 2;
+    }
+    //console.log(Ship.prototype.list[1].counter)
     }}
 
 
@@ -282,18 +287,21 @@ Enemy.prototype.bording = function () {
         //alert("Abordaż");
     }
 }
-Enemy.prototype.kkk = function () {
+Enemy.prototype.shot = function () {
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire && this.angry == true && this.fire == true){
-        this.fire = false;
         Ship.prototype.list[0].life -= this.damage;
         shotAudio.play();
+        this.fire = false;
     }
 }
 
 Enemy.prototype.angryStop = function () {
 
-    setTimeout(function () {this.angry = this.startAngry;}, 3000);
-
+    this.peacerate-=deltaTime;
+    if(this.peacerate<=0){
+        this.angry = false;
+        this.firerate = 2;
+    }
 }
 
 
@@ -315,8 +323,8 @@ Enemy.prototype.swim = function () {
     }
     //console.log("lenght: "+this.length);
     if (this.length > 5) {
-        this.x += this.dirX * deltaTime * 1 * frame;
-        this.y += this.dirY * deltaTime * 1 * frame;
+        this.x += this.dirX*deltaTime*this.speed*frame;
+        this.y += this.dirY*deltaTime*this.speed*frame;
     }
 }
 
@@ -330,7 +338,6 @@ Enemy.prototype.swimAll = function () {
 Enemy.prototype.update = function () {
 
     this.alive();
-    
     this.dirX += this.targetX - this.x;
     this.dirY += this.targetY - this.y;
     this.length = Math.sqrt(this.dirX * this.dirX + this.dirY * this.dirY); //oblicza bezpośrednią długość odcinka
@@ -355,12 +362,15 @@ Enemy.prototype.update = function () {
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOfSee && this.angry) {
 
         this.follow();
+        this.kkk();
         this.shot();
         this.bording();
-        this.kkk();
+       // this.kkk();
         //  console.log(1);
 
     }
+    
+    
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) > this.rangeOfSee && this.angry) {
 
         this.angryStop();
