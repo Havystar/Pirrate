@@ -270,7 +270,7 @@ Enemy.prototype.shot = function () {
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire) {
     //setInterval(function () {for (let i = 0; i < Enemy.prototype.list.length; i++) {Enemy.prototype.list[i].kkk();}}, 2000);
     //setTimeout(function () {shotAudio.play();}, 2000);
-    this.setInterval(function () {this.fire = true;}, 2000);
+    this.setInterval(() => {this.fire = true;}, 2000);
     }}
 
 
