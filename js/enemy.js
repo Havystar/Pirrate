@@ -263,7 +263,7 @@ Enemy.prototype.follow = function () {
 }
 
 
-Enemy.prototype.kkk = function () {
+Enemy.prototype.counter = function () {
 
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOffire) {
 
@@ -362,10 +362,9 @@ Enemy.prototype.update = function () {
     if (Math.sqrt(Math.pow(this.x - Ship.prototype.list[0].x, 2) + Math.pow(this.y - Ship.prototype.list[0].y, 2)) <= this.rangeOfSee && this.angry) {
 
         this.follow();
-        this.kkk();
+        this.counter();
         this.shot();
         this.bording();
-       // this.kkk();
         //  console.log(1);
 
     }
